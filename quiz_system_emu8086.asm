@@ -553,7 +553,7 @@ start:
                         mov dx,0 
                         
                         
-                       ;Calculation of total score
+                       ;Calculation of total score     (Total score/total weight)*100
                         mov ax,total_score
                         mov cl,100
                         mul cl
@@ -590,6 +590,7 @@ start:
                         mov dl,bh 
                         add dl,30h
                         int 21h
+                          ; printing percentage sign
                         mov dl,25h
                         int 21h
                         
@@ -854,12 +855,12 @@ get_random_number PROC
 
     ; function body
     mov ah, 2Ch ; DOS function to get a random character
-    int 21h 
+    int 21h     ;al has the random character
      
 
    ; To calculate the random number within the given range
     ; random number = (rand_char mod (upper_bound - lower_bound + 1)) + lower_bound
-    sub bl, bh ; (upper_bound - rand_char)
+    sub bl, bh ; (upper_bound - lower_bound)
     add bl, 1 ; (upper_bound - rand_char + 1)
     mov ah,0
     mov al,dl
